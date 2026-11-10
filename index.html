@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Belajar HTML Dasar – Informatika Kelas XII</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;background:#f4f6ff;background-image:radial-gradient(at 0% 30%,#e0e7ff 0,transparent 45%),radial-gradient(at 100% 60%,#ccfbf1 0,transparent 45%),radial-gradient(at 50% 100%,#fae8ff 0,transparent 50%);background-attachment:fixed}
+button{transition:transform .2s,box-shadow .2s,filter .2s;cursor:pointer}button:hover:not(:disabled){transform:translateY(-2px)}button:active{transform:scale(.97)}
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,#3730a3 45%,#0f766e 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:fl 9s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-25px) scale(1.15)}}
+.glass{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);box-shadow:0 18px 45px -22px rgba(67,56,202,.45)}
+.gtext{background:linear-gradient(90deg,#fde68a,#5eead4);-webkit-background-clip:text;background-clip:text;color:transparent}
+main>.bg-white{background:rgba(255,255,255,.82)!important;backdrop-filter:blur(14px);border:1px solid #fff;border-radius:1.5rem!important;box-shadow:0 22px 55px -25px rgba(67,56,202,.45)!important;padding:1.6rem!important}
+main .bg-indigo-600{background-image:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 8px 18px -8px #6366f1}
+main .bg-emerald-600{background-image:linear-gradient(135deg,#10b981,#14b8a6);box-shadow:0 8px 18px -8px #10b981}
+main .bg-teal-600{background-image:linear-gradient(135deg,#14b8a6,#06b6d4)}
+main h2{background:linear-gradient(90deg,#4338ca,#0d9488);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.6rem!important}
+.tabbtn{background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid #e0e7ff}
+.tabbtn.tab-on{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 8px 20px -6px #6366f1;border-color:transparent}
+#bar{background:linear-gradient(90deg,#fde047,#34d399)!important}
+.inp{background:rgba(255,255,255,.9)}
+pre.code{box-shadow:inset 0 0 0 1px #334155}
+pre.code{background:#0f172a;color:#a5f3fc;border-radius:.75rem;padding:.85rem;font-size:.8rem;overflow-x:auto;white-space:pre-wrap}
+textarea.ed{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;tab-size:2}
+.tab-on{background:#4f46e5;color:#fff}
+.inp{width:100%;border:1.5px solid #cbd5e1;border-radius:.75rem;padding:.6rem .8rem;outline:none}
+.inp:focus{border-color:#6366f1;box-shadow:0 0 0 3px #c7d2fe}
+.opt:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body class="min-h-screen text-slate-800">
+<header class="hero relative overflow-hidden text-white">
+ <div class="blob w-72 h-72 bg-fuchsia-500 -top-16 -left-10"></div><div class="blob w-80 h-80 bg-cyan-400 top-10 right-0" style="animation-delay:-3s"></div><div class="blob w-56 h-56 bg-amber-300 bottom-0 left-1/3" style="animation-delay:-6s"></div>
+ <div class="relative max-w-6xl mx-auto px-4 pt-9 pb-16">
+  <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1 text-xs font-bold tracking-wide mb-4"><i data-lucide="sparkles" class="w-4 h-4"></i> INFORMATIKA • KELAS XII SMA</div>
+  <div class="flex flex-wrap items-end gap-6 justify-between">
+   <div class="max-w-2xl"><h1 class="text-4xl md:text-6xl font-black leading-tight">Belajar <span class="gtext">HTML Dasar</span></h1>
+   <p class="mt-3 text-indigo-100 md:text-lg">Pahami, praktikkan, dan mainkan! Teori, live coding, game, LKPD, hingga laporan PDF dalam satu platform.</p></div>
+   <div class="glass !bg-white/15 !border-white/25 rounded-2xl px-5 py-4 w-full md:w-80 text-white"><div class="flex justify-between items-end"><span class="text-xs font-bold opacity-80">PROGRES BELAJAR</span><span id="pct" class="text-3xl font-black">0%</span></div>
+   <div class="mt-2 h-3 bg-white/25 rounded-full overflow-hidden"><div id="bar" class="h-full rounded-full" style="width:0%"></div></div></div>
+  </div>
+ </div>
+</header>
+<nav id="tabs" class="max-w-6xl mx-auto px-4 -mt-7 sticky top-2 z-20 flex gap-2 overflow-x-auto pb-2"></nav>
+<main id="view" class="max-w-6xl mx-auto px-4 py-5"></main>
+<footer class="max-w-6xl mx-auto px-4 pb-8"><div class="glass rounded-2xl py-5 text-center"><div class="text-sm text-slate-600">&copy; 2026 <b class="text-indigo-700">Christopher Michael Lauw, M.Kom</b>. All rights reserved.</div><div class="text-xs text-slate-400 mt-1">Platform Pembelajaran HTML Dasar &bull; Informatika Kelas XII SMA</div></div></footer>
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900/95 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 text-sm opacity-0 pointer-events-none transition max-w-[90vw] text-center"></div>
+<div id="reportBox" style="position:fixed;left:-10000px;top:0"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const MODS=[['teori','Teori','book-open'],['lab','Live Lab','terminal-square'],['game','Mini Game','gamepad-2'],['lkpd','LKPD','clipboard-list'],['refleksi','Refleksi','heart']];
+const S={tab:'teori',opened:new Set(),missions:{},game:{done:false,score:0,correct:0,total:0},lkpd:{nama:'',kelas:'',q:['','','',''],note:''},ref:{star:0,emo:0,best:'',hard:''},labCode:null,labRuns:0};
+const done=()=>({teori:S.opened.size>=THEORY.length,lab:Object.values(S.missions).filter(Boolean).length>=2,game:S.game.done,
+ lkpd:!!(S.lkpd.nama.trim()&&S.lkpd.kelas.trim()&&S.lkpd.q.every(x=>x.trim().length>3)),refleksi:!!(S.ref.star&&S.ref.emo&&S.ref.best.trim())});
+function toast(m){const t=$('#toast');t.textContent=m;t.style.opacity=1;clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity=0,3200)}
+function updateProgress(){const d=done(),n=Object.values(d).filter(Boolean).length,p=n*20;
+ gsap.to('#bar',{width:p+'%',duration:.6,ease:'power2.out'});$('#pct').textContent=p+'%';
+ $('#tabs').innerHTML=MODS.map(([k,l,i],ix)=>`<button onclick="go('${k}')" class="tabbtn shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full font-bold text-sm shadow-md ${S.tab===k?'tab-on':''}"><i data-lucide="${d[k]?'check-circle-2':i}" class="w-4 h-4 ${d[k]&&S.tab!==k?'text-emerald-500':''}"></i>${ix+1}. ${l}</button>`).join('');lucide.createIcons()}
+function go(k){if(S.tab==='game'&&G.timer)clearInterval(G.timer);S.tab=k;render();window.scrollTo({top:0,behavior:'smooth'})}
+function render(){const v=$('#view');v.innerHTML=({teori:vTeori,lab:vLab,game:vGame,lkpd:vLkpd,refleksi:vRef})[S.tab]();
+ gsap.from(v.children,{y:18,opacity:0,duration:.45,stagger:.06});
+ ({lab:initLab,game:initGame})[S.tab]?.();updateProgress()}
+const nav=(p,n)=>`<div class="flex justify-between mt-6">${p?`<button onclick="go('${p}')" class="px-5 py-2 rounded-xl bg-white shadow font-semibold">← Sebelumnya</button>`:'<span></span>'}${n?`<button onclick="go('${n}')" class="px-5 py-2 rounded-xl bg-indigo-600 text-white shadow font-semibold">Selanjutnya →</button>`:''}</div>`;
+
+/* ===== TEORI ===== */
+const THEORY=[
+{t:'a. Pengertian & Struktur Dokumen HTML',c:`<p><b>HTML</b> (HyperText Markup Language) adalah bahasa <i>markup</i> untuk menyusun struktur halaman web. HTML bukan bahasa pemrograman, karena tidak memiliki logika seperti percabangan dan perulangan. Ia hanya memberi "label" pada isi halaman.</p><p class="mt-2"><b>Sejarah singkat:</b> HTML dikembangkan oleh Tim Berners-Lee di CERN sekitar tahun 1991. Versi terbaru yang kita gunakan sekarang adalah <b>HTML5</b> (standar resmi 2014) yang mendukung audio, video, dan elemen semantik.</p><p class="mt-2">Struktur dasar dokumen:</p>`,code:`<!DOCTYPE html>\n<html lang="id">\n<head>\n  <meta charset="UTF-8">\n  <title>Halaman Pertamaku</title>\n</head>\n<body>\n  <h1>Halo Dunia!</h1>\n</body>\n</html>`,note:'<code>&lt;!DOCTYPE html&gt;</code> memberi tahu browser bahwa ini HTML5; <code>&lt;html&gt;</code> adalah akar dokumen; <code>&lt;head&gt;</code> berisi informasi (judul, meta) yang tidak tampil; <code>&lt;body&gt;</code> berisi isi yang tampil di layar.'},
+{t:'b. HTML Basic (Aturan Penulisan)',c:`<ul class="list-disc ml-5 space-y-1"><li>Sebagian besar elemen memiliki <b>tag pembuka</b> <code>&lt;p&gt;</code> dan <b>tag penutup</b> <code>&lt;/p&gt;</code>.</li><li><b>Case sensitivity:</b> HTML tidak membedakan huruf besar/kecil (<code>&lt;P&gt;</code> = <code>&lt;p&gt;</code>), namun standar yang dianjurkan adalah <b>huruf kecil</b>.</li><li><b>Nesting:</b> elemen boleh bersarang, tetapi harus ditutup berurutan (yang dibuka terakhir, ditutup pertama).</li></ul>`,code:`<!-- BENAR -->\n<p>Saya <b>suka</b> HTML</p>\n\n<!-- SALAH (urutan tutup terbalik) -->\n<p>Saya <b>suka</p></b>`,note:'Nesting yang salah membuat browser menebak-nebak tampilan, sehingga hasil bisa berbeda antar browser.'},
+{t:'c. HTML Elements',c:`<p><b>Tag</b> hanyalah penanda (<code>&lt;p&gt;</code>), sedangkan <b>elemen</b> adalah keseluruhan: tag pembuka + isi + tag penutup.</p><div class="grid md:grid-cols-2 gap-3 mt-3"><div class="bg-indigo-50 rounded-xl p-3"><b>Block</b>: mulai di baris baru dan memenuhi lebar. Contoh: <code>div, p, h1–h6, ul, table</code></div><div class="bg-teal-50 rounded-xl p-3"><b>Inline</b>: hanya selebar isinya, tidak ganti baris. Contoh: <code>span, a, b, i, img</code></div></div>`,code:`<div>Saya block 1</div>\n<div>Saya block 2</div>\n<span>Inline 1</span>\n<span>Inline 2</span>`,note:'Amati di Live Lab: dua <code>div</code> tampil di baris terpisah, dua <code>span</code> tampil bersebelahan.'},
+{t:'d. HTML Attributes',c:`<p>Atribut memberi informasi tambahan pada elemen. Ditulis di <b>tag pembuka</b> dengan format <code>nama="nilai"</code>.</p><ul class="list-disc ml-5 mt-2 space-y-1"><li><code>id</code> : pengenal unik elemen</li><li><code>class</code> : nama kelompok (boleh dipakai banyak elemen)</li><li><code>href</code> : tujuan tautan pada <code>&lt;a&gt;</code></li><li><code>src</code> : sumber file pada <code>&lt;img&gt;</code></li><li><code>alt</code> : teks pengganti jika gambar gagal dimuat (penting untuk aksesibilitas)</li></ul>`,code:`<a href="https://www.wikipedia.org" id="tautan1">Buka Wikipedia</a>\n<img src="foto.jpg" alt="Foto kelas XII" class="gambar">`,note:'Gambar tidak tampil karena <code>foto.jpg</code> tidak ada, namun teks <code>alt</code> muncul sebagai gantinya.'},
+{t:'e. HTML Headings',c:`<p>Judul dibuat dengan <code>&lt;h1&gt;</code> sampai <code>&lt;h6&gt;</code>. <b>h1</b> paling penting dan terbesar, <b>h6</b> paling kecil. Gunakan secara <b>hierarkis</b> (h1 → h2 → h3), jangan dipilih hanya karena ukuran. Idealnya satu halaman hanya punya satu <code>h1</code>.</p>`,code:`<h1>Judul Utama</h1>\n<h2>Subjudul</h2>\n<h3>Sub-subjudul</h3>\n<h6>Judul terkecil</h6>`,note:'Mesin pencari dan pembaca layar memakai heading untuk memahami kerangka halaman.'},
+{t:'f. HTML Paragraph & Formatting',c:`<ul class="list-disc ml-5 space-y-1"><li><code>&lt;p&gt;</code> : paragraf (spasi otomatis di atas/bawah)</li><li><code>&lt;br&gt;</code> : pindah baris (tanpa tag penutup)</li><li><code>&lt;hr&gt;</code> : garis pemisah horizontal</li><li><code>&lt;b&gt;</code> tebal, <code>&lt;i&gt;</code> miring, <code>&lt;u&gt;</code> garis bawah</li></ul>`,code:`<p>Baris pertama<br>Baris kedua</p>\n<hr>\n<p>Teks <b>tebal</b>, <i>miring</i>, dan <u>bergaris bawah</u>.</p>`,note:'Spasi dan Enter berlebih di kode diabaikan browser. Gunakan <code>&lt;br&gt;</code> atau <code>&lt;p&gt;</code> untuk baris baru.'},
+{t:'g. HTML Style (Inline)',c:`<p>Atribut <code>style</code> mengubah tampilan satu elemen langsung di tag-nya, dengan format <code>properti: nilai;</code>. Properti dasar: <code>color</code> (warna teks), <code>background-color</code> (latar), <code>font-family</code>, <code>font-size</code>, <code>text-align</code>.</p>`,code:`<h1 style="color:crimson; text-align:center;">Judul Merah</h1>\n<p style="background-color:lightyellow; font-family:Georgia; font-size:20px;">Paragraf bergaya.</p>`,note:'Style inline praktis untuk belajar, tetapi untuk proyek besar lebih baik memakai CSS terpisah.'}];
+function vTeori(){return `<div class="bg-white rounded-2xl shadow p-5"><h2 class="text-xl font-extrabold mb-1">📘 Modul 1: Materi Teori Dasar HTML</h2><p class="text-sm text-slate-500 mb-4">Buka ke-7 bagian materi (${S.opened.size}/${THEORY.length} terbuka). Klik "Coba di Lab" untuk mempraktikkan contoh.</p>
+${THEORY.map((x,i)=>`<div class="border border-slate-200 rounded-xl mb-2 overflow-hidden"><button onclick="togT(${i})" class="w-full flex items-center justify-between px-4 py-3 font-bold text-left ${S.opened.has(i)?'bg-emerald-50':'bg-slate-50'}"><span>${x.t}</span><i data-lucide="${S.opened.has(i)?'check-circle-2':'chevron-down'}" class="w-5 h-5"></i></button>
+<div id="th${i}" class="hidden px-4 py-3 text-sm leading-relaxed">${x.c}<pre class="code mt-2">${esc(x.code)}</pre><p class="mt-2 text-slate-600">💡 ${x.note}</p><button onclick="toLab(${i})" class="mt-3 px-4 py-2 rounded-lg bg-teal-600 text-white text-sm font-semibold">▶ Coba di Lab</button></div></div>`).join('')}</div>${nav(null,'lab')}`}
+function togT(i){const e=$('#th'+i);e.classList.toggle('hidden');if(!e.classList.contains('hidden')){gsap.from(e,{opacity:0,y:-8,duration:.3});S.opened.add(i);updateProgress();
+ const b=e.previousElementSibling;b.classList.add('bg-emerald-50');b.querySelector('span').nextElementSibling?.remove?.();b.insertAdjacentHTML('beforeend','<span>✅</span>');
+ const p=document.querySelector('#view p.text-sm');if(p)p.textContent=`Buka ke-7 bagian materi (${S.opened.size}/${THEORY.length} terbuka). Klik "Coba di Lab" untuk mempraktikkan contoh.`;
+ if(S.opened.size===THEORY.length)toast('🎉 Modul Teori selesai!')}}
+function toLab(i){S.labCode=THEORY[i].code;S.labRuns++;go('lab')}
+
+/* ===== LAB ===== */
+const MISSIONS=[
+{t:'Misi 1: Judul & Paragraf',d:'Buat satu <h1> berisi namamu dan minimal satu <p> berisi perkenalan singkat.',ok:c=>/<h1[^>]*>[\s\S]*?\S[\s\S]*?<\/h1>/i.test(c)&&/<p[^>]*>[\s\S]*?\S[\s\S]*?<\/p>/i.test(c),hint:'<h1>Namaku Budi</h1>\n<p>Saya siswa kelas XII.</p>'},
+{t:'Misi 2: Hierarki Heading',d:'Gunakan <h1>, <h2>, dan <h3> sekaligus, lalu pisahkan bagian dengan <hr>.',ok:c=>/<h1/i.test(c)&&/<h2/i.test(c)&&/<h3/i.test(c)&&/<hr/i.test(c),hint:'<h1>Judul</h1>\n<h2>Bab</h2>\n<h3>Subbab</h3>\n<hr>'},
+{t:'Misi 3: Style Inline',d:'Buat elemen dengan atribut style yang memuat color dan background-color, serta teks tebal <b> atau miring <i>.',ok:c=>/style\s*=\s*["'][^"']*(^|[;\s"'])color\s*:/i.test(c)&&/style\s*=\s*["'][^"']*background-color\s*:/i.test(c)&&/<(b|i)>/i.test(c),hint:'<p style="color:white; background-color:teal;"><b>Halo!</b></p>'}];
+const DEF='<!DOCTYPE html>\n<html>\n<body>\n  <h1>Halo, Dunia!</h1>\n  <p>Ubah kode ini dan lihat hasilnya langsung.</p>\n</body>\n</html>';
+let curM=0;
+function vLab(){return `<div class="bg-white rounded-2xl shadow p-5"><h2 class="text-xl font-extrabold">🧪 Modul 2: Interactive Lab</h2><p class="text-sm text-slate-500 mb-3">Selesaikan minimal 2 misi (${Object.values(S.missions).filter(Boolean).length}/3 selesai). Preview diperbarui otomatis saat mengetik.</p>
+<div class="flex flex-wrap gap-2 mb-3">${MISSIONS.map((m,i)=>`<button onclick="selM(${i})" class="px-3 py-1.5 rounded-lg text-sm font-semibold border ${curM===i?'bg-indigo-600 text-white':'bg-white'}">${S.missions[i]?'✅ ':''}${m.t.split(':')[0]}</button>`).join('')}<button onclick="selM(-1)" class="px-3 py-1.5 rounded-lg text-sm font-semibold border ${curM===-1?'bg-indigo-600 text-white':'bg-white'}">Bebas</button></div>
+<div id="mInfo" class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm mb-3"></div>
+<div class="grid md:grid-cols-2 gap-3"><div><div class="text-xs font-bold text-slate-500 mb-1">EDITOR KODE</div><textarea id="ed" class="ed inp bg-slate-900 text-emerald-300" style="height:340px" spellcheck="false"></textarea></div>
+<div><div class="text-xs font-bold text-slate-500 mb-1">PREVIEW</div><iframe id="pv" class="w-full border-2 border-slate-200 rounded-xl bg-white" style="height:340px" sandbox="allow-same-origin"></iframe></div></div>
+<div class="flex flex-wrap gap-2 mt-3"><button onclick="runLab(true)" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold">▶ Run Code</button><button onclick="chkM()" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold">✔ Cek Misi</button><button onclick="resetLab()" class="px-4 py-2 rounded-xl bg-slate-200 font-semibold">↺ Reset</button></div></div>${nav('teori','game')}`}
+function initLab(){const ed=$('#ed');ed.value=S.labCode??DEF;ed.addEventListener('input',()=>{S.labCode=ed.value;runLab()});
+ ed.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();const s=ed.selectionStart;ed.setRangeText('  ',s,ed.selectionEnd,'end')}});selM(curM,true);runLab()}
+function runLab(m){$('#pv').srcdoc=$('#ed').value;if(m){S.labRuns++;toast('Kode dijalankan ▶')}}
+function resetLab(){S.labCode=DEF;$('#ed').value=DEF;runLab()}
+function selM(i,keep){curM=i;if(!keep)render();else{}const m=MISSIONS[i];$('#mInfo').innerHTML=m?`<b>${m.t}</b><br>${esc(m.d)}<details class="mt-1"><summary class="cursor-pointer text-indigo-600">Butuh petunjuk?</summary><pre class="code mt-1">${esc(m.hint)}</pre></details>`:'<b>Mode Bebas</b><br>Bereksperimen sesukamu, lalu catat temuanmu di LKPD.'}
+function chkM(){const m=MISSIONS[curM];if(!m)return toast('Pilih salah satu misi dulu.');const c=$('#ed').value;
+ if(m.ok(c)){if(!S.missions[curM]){S.missions[curM]=true;confetti({particleCount:80,spread:70,origin:{y:.7}})}toast('✅ Misi berhasil! Kerja bagus.');const w=Object.values(S.missions).filter(Boolean).length;
+  $('#view p.text-sm').textContent=`Selesaikan minimal 2 misi (${w}/3 selesai). Preview diperbarui otomatis saat mengetik.`;updateProgress();
+  document.querySelectorAll('#view .flex.flex-wrap button')[curM].textContent='✅ '+m.t.split(':')[0]}
+ else{toast('❌ Belum sesuai. Periksa tag, penutup, dan atribut kodemu.');gsap.fromTo('#ed',{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'})}}
+
+/* ===== GAME ===== */
+const QS=[['<h1>','Judul paling penting / terbesar',['Judul paling penting / terbesar','Pindah baris','Garis pemisah','Teks miring']],['<br>','Pindah baris tanpa tag penutup',['Paragraf','Pindah baris tanpa tag penutup','Teks tebal','Gambar']],['<hr>','Garis pemisah horizontal',['Garis pemisah horizontal','Judul kecil','Tautan','Latar belakang']],['<a href>','Membuat tautan ke halaman lain',['Menampilkan gambar','Membuat tautan ke halaman lain','Membuat paragraf','Memberi warna']],['<img>','Menampilkan gambar',['Menampilkan gambar','Membuat tabel','Teks tebal','Menutup dokumen']],['alt','Teks pengganti gambar',['Alamat tujuan tautan','Teks pengganti gambar','Warna teks','Pengenal unik']],['style','Mengatur tampilan elemen secara inline',['Mengatur tampilan elemen secara inline','Menentukan judul tab','Membuat daftar','Menutup elemen']],['<b>','Teks tebal',['Teks miring','Teks tebal','Garis bawah','Judul']],['<head>','Informasi dokumen yang tidak tampil',['Isi yang tampil di layar','Informasi dokumen yang tidak tampil','Footer halaman','Daftar bernomor']],['<span>','Elemen inline',['Elemen block','Elemen inline','Elemen judul','Elemen gambar']]];
+const G={i:0,t:15,timer:null,score:0,ok:0,order:[],lock:false};
+function vGame(){return `<div class="bg-white rounded-2xl shadow p-5 relative overflow-hidden"><h2 class="text-xl font-extrabold">🎮 Modul 3: Tag Match Challenge</h2><p class="text-sm text-slate-500 mb-3">Cocokkan tag/atribut HTML dengan fungsinya! 10 soal, 15 detik per soal. Benar = 10 poin + bonus waktu.</p><canvas id="cv" class="absolute inset-0 w-full h-full opacity-20 pointer-events-none"></canvas><div id="gbox" class="relative"></div></div>${nav('lab','lkpd')}`}
+function initGame(){bg3d();gStartScreen()}
+function gStartScreen(){clearInterval(G.timer);$('#gbox').innerHTML=`<div class="text-center py-10"><div class="text-6xl mb-3">🏷️</div><p class="mb-4">${S.game.done?`Skor terakhirmu: <b>${S.game.score}</b> (${S.game.correct}/${S.game.total} benar). Coba lagi untuk skor lebih tinggi!`:'Siap menguji pemahaman tag HTML-mu?'}</p><button onclick="gStart()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-teal-500 text-white font-bold text-lg shadow-lg">${S.game.done?'Main Lagi':'Mulai Game'}</button></div>`}
+function gStart(){G.i=0;G.score=0;G.ok=0;G.order=[...QS.keys()].sort(()=>Math.random()-.5);gQ()}
+function gQ(){G.lock=false;G.t=15;const q=QS[G.order[G.i]],opts=[...q[2]].sort(()=>Math.random()-.5);
+ $('#gbox').innerHTML=`<div class="flex justify-between text-sm font-bold mb-2"><span>Soal ${G.i+1}/${QS.length}</span><span>⭐ Skor: <span id="gs">${G.score}</span></span><span id="gt" class="text-rose-600">⏱ 15</span></div><div class="h-2 bg-slate-200 rounded-full mb-4"><div id="gtb" class="h-full bg-rose-500 rounded-full" style="width:100%"></div></div>
+ <div id="gq" class="text-center bg-slate-900 text-cyan-300 rounded-2xl py-6 mb-4"><div class="text-xs text-slate-400">Apa fungsi dari...</div><div class="text-3xl font-mono font-black">${esc(q[0])}</div></div>
+ <div class="grid md:grid-cols-2 gap-3">${opts.map(o=>`<button class="opt transition border-2 border-slate-200 rounded-xl p-3 font-semibold bg-white text-left" onclick="gAns(this,${JSON.stringify(o===q[1])})">${esc(o)}</button>`).join('')}</div>`;
+ gsap.from('#gq',{scale:.8,opacity:0,duration:.4,ease:'back.out(2)'});clearInterval(G.timer);
+ G.timer=setInterval(()=>{G.t--;$('#gt').textContent='⏱ '+G.t;gsap.to('#gtb',{width:(G.t/15*100)+'%',duration:.9,ease:'none'});if(G.t<=0){clearInterval(G.timer);gAns(null,false,true)}},1000)}
+function gAns(btn,right,timeout){if(G.lock)return;G.lock=true;clearInterval(G.timer);const q=QS[G.order[G.i]];
+ document.querySelectorAll('#gbox .opt').forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add('bg-emerald-100','border-emerald-500')});
+ if(right){const bonus=G.t;G.score+=10+bonus;G.ok++;$('#gs').textContent=G.score;gsap.fromTo(btn,{scale:1},{scale:1.06,yoyo:true,repeat:1,duration:.2});toast(`✅ Benar! +${10+bonus} poin`);confetti({particleCount:30,spread:50,origin:{y:.8}})}
+ else{if(btn){btn.classList.add('bg-rose-100','border-rose-500');gsap.fromTo(btn,{x:-10},{x:0,duration:.5,ease:'elastic.out(1,.3)'})}toast(timeout?'⏰ Waktu habis!':'❌ Kurang tepat. Perhatikan jawaban yang benar (hijau).')}
+ setTimeout(()=>{G.i++;G.i<QS.length?gQ():gEnd()},1600)}
+function gEnd(){S.game={done:true,score:Math.max(G.score,S.game.score||0),correct:Math.max(G.ok,S.game.correct||0),total:QS.length};if(G.ok>=6)confetti({particleCount:220,spread:100,origin:{y:.6}});
+ $('#gbox').innerHTML=`<div class="text-center py-8"><div class="text-6xl mb-2">${G.ok>=8?'🏆':G.ok>=6?'🎉':'💪'}</div><h3 class="text-2xl font-black">Skor: ${G.score}</h3><p class="mb-4">${G.ok}/${QS.length} jawaban benar • ${G.ok>=8?'Luar biasa!':G.ok>=6?'Bagus sekali!':'Ayo pelajari lagi teorinya, lalu coba kembali.'}</p><button onclick="gStart()" class="px-6 py-2 rounded-xl bg-indigo-600 text-white font-bold">Main Lagi</button></div>`;updateProgress()}
+function bg3d(){const c=$('#cv');if(!window.THREE){return}}
+
+/* ===== LKPD ===== */
+const LQ=['Jelaskan perbedaan antara tag dan elemen HTML, serta berikan satu contoh!','Mengapa penggunaan heading (h1–h6) harus hierarkis? Apa akibatnya jika dipilih hanya berdasarkan ukuran?','Jelaskan fungsi atribut href, src, dan alt, serta pada elemen apa masing-masing digunakan!','Berikan satu contoh kode yang memakai style inline untuk mengubah warna teks dan latar belakang, lalu jelaskan hasilnya.'];
+function vLkpd(){const L=S.lkpd;return `<div class="bg-white rounded-2xl shadow p-5"><h2 class="text-xl font-extrabold mb-1">📝 Modul 4: LKPD Digital</h2><p class="text-sm text-slate-500 mb-4">Isi semua kolom (minimal 4 karakter tiap jawaban).</p>
+<div class="grid md:grid-cols-2 gap-3 mb-4"><div><label class="text-sm font-bold">Nama Lengkap</label><input class="inp" value="${esc(L.nama)}" oninput="S.lkpd.nama=this.value;updateProgress()" placeholder="Nama lengkap"></div><div><label class="text-sm font-bold">Kelas</label><input class="inp" value="${esc(L.kelas)}" oninput="S.lkpd.kelas=this.value;updateProgress()" placeholder="contoh: XII-A"></div></div>
+${LQ.map((q,i)=>`<div class="mb-3"><label class="text-sm font-bold">${i+1}. ${q}</label><textarea rows="3" class="inp mt-1" oninput="S.lkpd.q[${i}]=this.value;updateProgress()" placeholder="Tulis jawabanmu...">${esc(L.q[i])}</textarea></div>`).join('')}
+<div><label class="text-sm font-bold">🧪 Catatan Hasil Eksperimen Live Lab</label><textarea rows="4" class="inp mt-1" oninput="S.lkpd.note=this.value" placeholder="Apa yang kamu coba, apa hasilnya, apa yang kamu temukan?">${esc(L.note)}</textarea></div></div>${nav('game','refleksi')}`}
+
+/* ===== REFLEKSI ===== */
+const EM=['😞','😕','😐','🙂','🤩'];
+function vRef(){const R=S.ref,d=done(),rest=Object.entries(d).filter(([k,v])=>k!=='refleksi'&&!v);
+return `<div class="bg-white rounded-2xl shadow p-5"><h2 class="text-xl font-extrabold mb-4">💭 Modul 5: Refleksi Pembelajaran</h2>
+<p class="font-bold text-sm mb-1">Seberapa paham kamu dengan materi HTML Dasar?</p><div class="flex gap-2 mb-4" id="emo">${EM.map((e,i)=>`<button onclick="setR('emo',${i+1})" class="text-3xl p-2 rounded-xl border-2 ${R.emo===i+1?'border-indigo-600 bg-indigo-50':'border-transparent'}">${e}</button>`).join('')}</div>
+<p class="font-bold text-sm mb-1">Seberapa puas kamu dengan pembelajaran ini?</p><div class="flex gap-1 mb-4">${[1,2,3,4,5].map(i=>`<button onclick="setR('star',${i})" class="text-3xl ${i<=R.star?'':'grayscale opacity-40'}">⭐</button>`).join('')}</div>
+<label class="font-bold text-sm">Hal yang paling berkesan</label><textarea rows="3" class="inp mb-3" oninput="S.ref.best=this.value;updateProgress()">${esc(R.best)}</textarea>
+<label class="font-bold text-sm">Kendala yang dihadapi</label><textarea rows="3" class="inp mb-4" oninput="S.ref.hard=this.value">${esc(R.hard)}</textarea>
+<div class="bg-slate-50 rounded-xl p-3 text-sm mb-4"><b>Status modul:</b> ${MODS.map(([k,l])=>`<span class="inline-block mr-2">${d[k]?'✅':'⬜'} ${l}</span>`).join('')}</div>
+<button onclick="finish()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-lg shadow-lg">🏁 FINISH &amp; DOWNLOAD LAPORAN (PDF)</button></div>${nav('lkpd',null)}`}
+function setR(k,v){S.ref[k]=v;const y=window.scrollY;render();window.scrollTo(0,y)}
+
+/* ===== PDF ===== */
+function finish(){const d=done(),miss=MODS.filter(([k])=>!d[k]).map(m=>m[1]);
+ if(miss.length){toast('⚠️ Belum lengkap: '+miss.join(', '));gsap.fromTo('#tabs',{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'});return}
+ const L=S.lkpd,R=S.ref,sc=S.game,nilai=Math.round(sc.correct/sc.total*100),tgl=new Date().toLocaleDateString('id-ID',{dateStyle:'full'});
+ const box=(h,b)=>`<div style="page-break-inside:avoid;break-inside:avoid;border:1px solid #cbd5e1;border-radius:10px;padding:12px 14px;margin-bottom:12px;background:#fff"><div style="font-weight:800;color:#4338ca;font-size:13px;margin-bottom:6px;border-bottom:2px solid #e0e7ff;padding-bottom:4px">${h}</div>${b}</div>`;
+ const pre=t=>`<div style="white-space:pre-wrap;word-break:break-word;font-size:11.5px;line-height:1.5">${esc(t||'-')}</div>`;
+ $('#reportBox').innerHTML=`<div id="rep" style="width:700px;font-family:Arial,Helvetica,sans-serif;color:#1e293b;padding:6px;background:#fff">
+ <div style="background:#4f46e5;color:#fff;border-radius:12px;padding:16px 18px;margin-bottom:12px;page-break-inside:avoid"><div style="font-size:19px;font-weight:800">LAPORAN BELAJAR: HTML DASAR</div><div style="font-size:11px;opacity:.9">Informatika • Kelas XII SMA • ${tgl}</div></div>
+ ${box('1. Identitas Siswa',`<table style="width:100%;font-size:12px"><tr><td style="width:120px;padding:2px 0">Nama Lengkap</td><td>: <b>${esc(L.nama)}</b></td></tr><tr><td style="padding:2px 0">Kelas</td><td>: <b>${esc(L.kelas)}</b></td></tr></table>`)}
+ ${box('2. Status Penyelesaian Modul',`<table style="width:100%;border-collapse:collapse;font-size:12px">${MODS.map(([k,l],i)=>`<tr style="background:${i%2?'#f8fafc':'#fff'}"><td style="border:1px solid #e2e8f0;padding:5px 8px">Modul ${i+1}: ${l}</td><td style="border:1px solid #e2e8f0;padding:5px 8px;color:#059669;font-weight:700;width:110px">Selesai ✔</td></tr>`).join('')}</table><div style="font-size:11px;margin-top:6px;color:#64748b">Misi Lab selesai: ${Object.values(S.missions).filter(Boolean).length}/3 • Bagian teori dipelajari: ${S.opened.size}/${THEORY.length}</div>`)}
+ ${box('3. Skor Game "Tag Match Challenge"',`<table style="width:100%;font-size:12px"><tr><td>Skor tertinggi</td><td><b>${sc.score}</b></td><td>Jawaban benar</td><td><b>${sc.correct}/${sc.total}</b></td><td>Nilai</td><td><b>${nilai}</b></td></tr></table>`)}
+ ${box('4. Ringkasan Jawaban LKPD',LQ.map((q,i)=>`<div style="margin-bottom:8px;page-break-inside:avoid"><div style="font-size:11.5px;font-weight:700">${i+1}. ${esc(q)}</div><div style="background:#f1f5f9;border-radius:6px;padding:6px 8px;margin-top:3px">${pre(L.q[i])}</div></div>`).join('')+`<div style="page-break-inside:avoid"><div style="font-size:11.5px;font-weight:700">Catatan Eksperimen Live Lab</div><div style="background:#f1f5f9;border-radius:6px;padding:6px 8px;margin-top:3px">${pre(L.note)}</div></div>`)}
+ ${box('5. Catatan Refleksi',`<div style="font-size:12px;margin-bottom:6px">Pemahaman: <span style="font-size:18px">${EM[R.emo-1]}</span> (${R.emo}/5) &nbsp;•&nbsp; Kepuasan: <b>${'★'.repeat(R.star)}${'☆'.repeat(5-R.star)}</b> (${R.star}/5)</div><div style="font-size:11.5px;font-weight:700">Hal paling berkesan</div>${pre(R.best)}<div style="font-size:11.5px;font-weight:700;margin-top:6px">Kendala yang dihadapi</div>${pre(R.hard)}`)}
+ <div style="text-align:center;font-size:10px;color:#94a3b8;margin-top:8px">&copy; 2026 Christopher Michael Lauw, M.Kom. All rights reserved. &bull; Dihasilkan otomatis oleh Platform HTML Dasar Interaktif</div></div>`;
+ toast('⏳ Membuat PDF...');
+ html2pdf().set({margin:[10,10,10,10],filename:`Laporan_HTML_Dasar_${L.nama.trim().replace(/\s+/g,'_')}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,scrollY:0,windowWidth:760},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],avoid:['div[style*="page-break-inside"]','tr']}})
+  .from($('#rep')).save().then(()=>{confetti({particleCount:200,spread:90,origin:{y:.6}});toast('🎉 Laporan PDF berhasil diunduh!');$('#reportBox').innerHTML=''}).catch(()=>toast('Gagal membuat PDF. Coba lagi.'));}
+
+render();
+</script>
+</body>
+</html>
